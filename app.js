@@ -46,6 +46,7 @@ app.get('/', async (req, res, next)=>{
         return res.render("index", 
                             {
                                 info: req.session.account,
+                                findProjectBySlug: null,
                                 list_project: list_project,
                                 list_account: list_account,
                                 list_task_todo: list_task_todo,
@@ -128,6 +129,7 @@ const createNewTask = async (data) => {
     const object = {
         type_task: data.type_task,
         name_task: data.name_task,
+        id_project: data.id_project,
         id_react: data.id_react,
         id_created: data.id_created,
         status_task: 1,

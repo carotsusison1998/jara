@@ -91,7 +91,7 @@
 /* Add a color to the active/current link */
 .topnav a.active {
   background-color: #04aa6d;
-  color: white;
+  color: #ffffff;
 }
 .topnav .logo {
   width: 80px;
@@ -155,6 +155,7 @@
   border: 1px solid #2ad175;
   border-radius: 4px;
   display: none;
+  flex-direction: column;
 }
 .topnav .list-project::before {
   position: absolute;
@@ -174,6 +175,7 @@
   font-size: 15px;
   width: 100%;
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 .topnav .list-project li{
   list-style: none;

@@ -45,7 +45,11 @@
                 <option value="2">Sửa lỗi</option>
             </select>
             <input type="hidden" id="account_current" value="<%= info.id %>" name="id_created" required>
-
+            <%
+                if(findProjectBySlug){
+            %>
+            <input type="hidden" id="id_project" value="<%= findProjectBySlug._id %>" name="id_project" required>
+            <% } %>
             <label><b>Tên nhiệm vụ</b></label>
             <input type="text" value="Setup project" placeholder="tên nhiệm vụ" name="name_task" required>
 

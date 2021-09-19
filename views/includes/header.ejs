@@ -23,7 +23,7 @@
             <!-- <button class="open-button" onclick="openFormPopupProject()">Tạo dự án</button> -->
             <button class="open-button" onclick="openListProject()">Dự án</button>
             <div class="list-project">
-                <li onclick="openFormPopupProject()">Tạo dự án</li>
+                <a onclick="openFormPopupProject()"><li>Tạo dự án</li></a>
             <%
               if(list_project && list_project.length > 0){
                 list_project.forEach((item)=>{

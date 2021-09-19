@@ -7,25 +7,36 @@ const Tasks = require("../models/Tasks");
 
 const get = async (req, res, next) => {
     if(req.session.account){
-        const list_task_todo = await Tasks.find({status_task: 1});
-        const list_task_progress = await Tasks.find({status_task: 2});
-        const list_task_test = await Tasks.find({status_task: 3});
-        const list_task_review = await Tasks.find({status_task: 4});
-        const list_task_done = await Tasks.find({status_task: 5});
-        const list_account = await Accounts.find({}).sort({name: -1});
-        const list_project = await Project.find({list_member: {$all: [req.session.account.id]}});
-        return res.render("projects/project", 
-                            {
-                                info: req.session.account,
-                                list_project: list_project,
-                                list_account: list_account,
-                                list_task_todo: list_task_todo,
-                                list_task_progress: list_task_progress,
-                                list_task_test: list_task_test,
-                                list_task_review: list_task_review,
-                                list_task_done: list_task_done,
-                            }
-                        );
+        if(req.query.name !== "" || req.query.name !== undefined){
+            const findProjectBySlug = await Project.findOne({slug_project: req.query.name});
+            if(findProjectBySlug){
+                const list_task_todo = await Tasks.find({status_task: 1, id_project: findProjectBySlug._id});
+                const list_task_progress = await Tasks.find({status_task: 2, id_project: findProjectBySlug._id});
+                const list_task_test = await Tasks.find({status_task: 3, id_project: findProjectBySlug._id});
+                const list_task_review = await Tasks.find({status_task: 4, id_project: findProjectBySlug._id});
+                const list_task_done = await Tasks.find({status_task: 5, id_project: findProjectBySlug._id});
+                const list_account = await Accounts.find({}).sort({name: -1});
+                const list_project = await Project.find({list_member: {$all: [req.session.account.id]}});
+                
+                return res.render("projects/project", 
+                                    {
+                                        info: req.session.account,
+                                        findProjectBySlug: findProjectBySlug,
+                                        list_project: list_project,
+                                        list_account: list_account,
+                                        list_task_todo: list_task_todo,
+                                        list_task_progress: list_task_progress,
+                                        list_task_test: list_task_test,
+                                        list_task_review: list_task_review,
+                                        list_task_done: list_task_done,
+                                    }
+                                );
+            }else{
+                return res.redirect("/");
+            }
+        }else{
+            return res.redirect("/");
+        }
     }else{
         req.flash('info', 'Hết thời gian truy cập, Vui lòng đăng nhập lại!');
         return res.redirect("/login");

@@ -10,6 +10,10 @@ const TaskSchema = new Schema({
         type: String,
         required: true,
     },
+    id_project:{
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
     id_created:{
         type: mongoose.Schema.ObjectId,
         required: true

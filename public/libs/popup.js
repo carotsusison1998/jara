@@ -14,10 +14,10 @@ function openAccount() {
   }
 }
 function openListProject() {
-  if ($(".list-project").css("display") === "block") {
+  if ($(".list-project").css("display") === "flex") {
     $(".list-project").css("display", "none");
   } else {
-    $(".list-project").css("display", "block");
+    $(".list-project").css("display", "flex");
   }
 }
 function openFormPopupProject() {
