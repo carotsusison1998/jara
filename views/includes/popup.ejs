@@ -1,0 +1,76 @@
+<div class="form-popup create-project" id="myFormPopupProject">
+    <form class="form-container">
+        <h2>Tạo dự án mới</h2>
+        <div class="content-form">
+            <input type="hidden" id="account_current" value="<%= info.id %>" name="id_created" required>
+            <input class="slug-project" type="hidden" value="" name="slug_project" required>
+
+            <label><b>Tên dự án</b></label>
+            <input class="name-project" type="text" value="Dự án todo Jara App" placeholder="tên dự án" name="name_project" required>
+
+            <label><b>Thành viên dự án</b></label>
+            <select name="list_member" data-placeholder="Chọn thành viên trong dự án" multiple class="chosen-select">
+            <%
+                if(list_account && list_account.length > 0){
+                    list_account.forEach((item)=>{
+            %>
+                <option value="<%= item._id %>"><%= item.name %></option>
+            <%
+                    });
+                }
+            %>
+            </select>
+
+            <label><b>Thời gian ước lượng dự án</b></label>
+            <input type="text" value="30m" placeholder="thời gian ước lượng" name="estimate_project" required>
+
+            <label><b>Mô tả dự án</b></label>
+            <textarea name="description_project" id="" cols="30" rows="10">Setup dự án PHP quản lí công việc</textarea>
+        </div>
+        <div class="btn-group">
+            <button type="button" id="create_new_prject" class="btn">Tạo</button>
+            <button type="button" class="btn cancel" onclick="closeFormPopupProject()">Đóng</button>
+        </div>
+    </form>
+</div>
+
+<div class="form-popup create-task" id="myFormPopupTask">
+    <!-- action="/task" method="post"  -->
+    <form class="form-container">
+        <h2>Tạo nhiệm vụ mới</h2>
+        <div class="content-form">
+            <label><b>Loại nhiệm vụ</b></label>
+            <select name="type_task">
+                <option value="1">Nhiệm vụ mới</option>
+                <option value="2">Sửa lỗi</option>
+            </select>
+            <input type="hidden" id="account_current" value="<%= info.id %>" name="id_created" required>
+
+            <label><b>Tên nhiệm vụ</b></label>
+            <input type="text" value="Setup project" placeholder="tên nhiệm vụ" name="name_task" required>
+
+            <label><b>Người thực hiện</b></label>
+            <select name="id_react">
+            <%
+                if(list_account && list_account.length > 0){
+                    list_account.forEach((item)=>{
+            %>
+                <option value="<%= item._id %>"><%= item.name %></option>
+            <%
+                    });
+                }
+            %>
+            </select>
+
+            <label><b>Thời gian ước lượng</b></label>
+            <input type="text" value="30m" placeholder="thời gian ước lượng" name="estimate_task" required>
+
+            <label><b>Mô tả nhiệm vụ</b></label>
+            <textarea name="description_task" id="" cols="30" rows="10">Setup dự án PHP quản lí công việc</textarea>
+        </div>
+        <div class="btn-group">
+            <button type="button" id="create_new_task" class="btn">Tạo</button>
+            <button type="button" class="btn cancel" onclick="closeFormPopup()">Đóng</button>
+        </div>
+    </form>
+</div>

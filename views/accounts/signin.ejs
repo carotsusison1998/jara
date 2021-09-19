@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="center">
+        <div class="account">
+            <form method="post">
+                <div class="header">
+                    <img class="logo" src="../images/logo.png" alt="">
+                    <h4>Đăng nhập</h4>
+                </div>
+                <div class="content">
+                    <%
+                        if(message && message !== ""){
+                    %>
+                            <p><%= message %></p>
+                    <%
+                        }
+                    %>
+                    <div class="block">
+                        <label for="">Tài khoản</label>
+                        <input type="text" name="username" value="lytran168" placeholder="tên tài khoản">
+                    </div>
+                    <div class="block">
+                        <label for="">Mật khẩu</label>
+                        <input type="password" name="password" value="Ngocduy1998" placeholder="mật khẩu">
+                    </div>
+                    <div class="block">
+                        <input type="submit" value="Đăng nhập">
+                    </div>
+                    <div class="link">
+                        <a class="link-account" href="/register">Đăng ký</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+    <script src="../libs/jquery.js"></script>
+</html>

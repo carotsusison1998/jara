@@ -1,0 +1,93 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/popup.ejs') %>
+
+<div class="header-todo">
+    <h4 class="title-task">Nhiệm vụ</h4>
+    <h4 class="title-task">Đang thực hiện</h4>
+    <h4 class="title-task">Đang kiểm tra</h4>
+    <h4 class="title-task">Kiểm tra lần cuối</h4>
+    <h4 class="title-task">Hoàn thành</h4>
+</div>
+<div class="content-todo">
+    <div class="autosort column-item todo" data-column="todo">
+    <%
+        if(list_task_todo && list_task_todo.length > 0){
+            list_task_todo.forEach((item)=>{
+    %>
+        <div class="row-item task-<%= item._id %>" draggable="true" data-id="<%= item._id %>" data-stt="<%= item.index_task %>">
+            <img src="../images/scroll.png" alt="" class="icon icon-drop">
+            <p class="stt-work"><%= item.index_task %></p>
+            <p class="name-work"><%= item.name_task %></p>
+            <p class="estimate-work"><%= item.estimate_task %></p>
+        </div>
+    <%
+            });
+        }
+    %>
+    </div>
+    <div class="autosort column-item progress" data-column="progress">
+    <%
+        if(list_task_progress && list_task_progress.length > 0){
+            list_task_progress.forEach((item)=>{
+    %>
+        <div class="row-item task-<%= item._id %>" draggable="true" data-id="<%= item._id %>" data-stt="<%= item.index_task %>">
+            <img src="../images/scroll.png" alt="" class="icon icon-drop">
+            <p class="stt-work"><%= item.index_task %></p>
+            <p class="name-work"><%= item.name_task %></p>
+            <p class="estimate-work"><%= item.estimate_task %></p>
+        </div>
+    <%
+            });
+        }
+    %>
+    </div>
+    <div class="autosort column-item test" data-column="test">
+    <%
+        if(list_task_test && list_task_test.length > 0){
+            list_task_test.forEach((item)=>{
+    %>
+        <div class="row-item task-<%= item._id %>" draggable="true" data-id="<%= item._id %>" data-stt="<%= item.index_task %>">
+            <img src="../images/scroll.png" alt="" class="icon icon-drop">
+            <p class="stt-work"><%= item.index_task %></p>
+            <p class="name-work"><%= item.name_task %></p>
+            <p class="estimate-work"><%= item.estimate_task %></p>
+        </div>
+    <%
+            });
+        }
+    %>
+    </div>
+    <div class="autosort column-item review" data-column="review">
+    <%
+        if(list_task_review && list_task_review.length > 0){
+            list_task_review.forEach((item)=>{
+    %>
+        <div class="row-item task-<%= item._id %>" draggable="true" data-id="<%= item._id %>" data-stt="<%= item.index_task %>">
+            <img src="../images/scroll.png" alt="" class="icon icon-drop">
+            <p class="stt-work"><%= item.index_task %></p>
+            <p class="name-work"><%= item.name_task %></p>
+            <p class="estimate-work"><%= item.estimate_task %></p>
+        </div>
+    <%
+            });
+        }
+    %>
+    </div>
+    <div class="autosort column-item done" data-column="done">
+    <%
+        if(list_task_done && list_task_done.length > 0){
+            list_task_done.forEach((item)=>{
+    %>
+        <div class="row-item task-<%= item._id %>" draggable="true" data-id="<%= item._id %>" data-stt="<%= item.index_task %>">
+            <img src="../images/scroll.png" alt="" class="icon icon-drop">
+            <p class="stt-work"><%= item.index_task %></p>
+            <p class="name-work"><%= item.name_task %></p>
+            <p class="estimate-work"><%= item.estimate_task %></p>
+        </div>
+    <%
+            });
+        }
+    %>
+    </div>
+</div>
+<%- include('../includes/footer.ejs') %>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="center">
+        <div class="account">
+            <form method="post">
+                <div class="header">
+                    <img class="logo" src="../images/logo.png" alt="">
+                    <h4>Đăng ký tài khoản</h4>
+                </div>
+                <div class="content">
+                    <%
+                        if(message && message !== ""){
+                    %>
+                            <p><%= message %></p>
+                    <%
+                        }
+                    %>
+                    <div class="block">
+                        <label for="">Họ và tên</label>
+                        <input type="text" name="name" placeholder="họ và tên">
+                    </div>
+                    <div class="block">
+                        <label for="">Email</label>
+                        <input type="email" name="email" placeholder="email">
+                    </div>
+                    <div class="block">
+                        <label for="">Tài khoản</label>
+                        <input type="text" name="username" placeholder="tên tài khoản">
+                    </div>
+                    <div class="block">
+                        <label for="">Mật khẩu</label>
+                        <input type="password" name="password" placeholder="mật khẩu">
+                    </div>
+                    <div class="block">
+                        <input type="submit" value="Đăng ký">
+                    </div>
+                    <div class="link">
+                        <a class="link-account" href="/login">Đăng nhập</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+    <script src="../libs/jquery.js"></script>
+</html>

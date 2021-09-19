@@ -1,0 +1,37 @@
+body{
+    background-color: #ffffff;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+img.icon{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+img:hover{
+    opacity: 0.8;
+}
+.center{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+p,a,h1,h2,h3,h4,h5,h6{
+    word-wrap: break-word;
+}
+p,a{
+    font-weight: 300;
+}
+h1,h2{
+    font-weight: 700;
+}
+h3,h4{
+    font-weight: 500;
+}
+h5,h6{
+    font-weight: 400;
+}

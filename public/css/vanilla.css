@@ -1,0 +1,69 @@
+.header-todo,
+.content-todo{
+    display: flex;
+    justify-content: space-around;
+}
+.header-todo .title-task,
+.content-todo .column-item{
+    background-color: #f4f5f7;
+    width: calc(100%/5);
+    margin: 0 10px;
+    padding: 8px;
+    border: 2px solid #ffffff;
+}
+.content-todo .column-item{
+    min-height: calc(100vh - 100px);
+}
+.content-todo .column-item .row-item{
+    width: 100%;
+    height: 120px;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+.content-todo .column-item .row-item p{
+    padding-left: 10px;
+    padding-right: 34px;
+    padding-top: 10px;
+    margin: 0;
+}
+.content-todo .column-item .row-item p.name-work{
+    display: block;
+    display: -webkit-box;
+    padding-right: 10px;
+    max-height: 65px;
+    height: 100%;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.content-todo .column-item .row-item p.estimate-work{
+    position: absolute;
+    bottom: 4px;
+    padding: 2px 8px;
+    background-color: #2CDB7B;
+    color: #ffffff;
+    border-radius: 8px;
+    margin: 0 10px;
+}
+.content-todo .column-item .icon-drop{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.content-todo .column-item .title-task{
+    font-size: 18px;
+    margin: 10px 0 20px;
+    position: relative;
+}
+.content-todo .column-item .title-task::before{
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: rgb(194, 194, 194);
+    bottom: -17px;
+}
