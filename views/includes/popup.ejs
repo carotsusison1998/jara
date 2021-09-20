@@ -39,6 +39,20 @@
     <form class="form-container">
         <h2>Tạo nhiệm vụ mới</h2>
         <div class="content-form">
+            <label><b>Dự án</b></label>
+            <select name="id_project">
+            <%
+              if(list_project && list_project.length > 0){
+                list_project.forEach((item)=>{
+            %>
+                <a href="/project?name=<%= item.slug_project %>"><li></li></a>
+                <option value="<%= item._id %>"><%= item.name_project %></option>
+            <%
+                });
+              }
+            %>
+            </select>
+
             <label><b>Loại nhiệm vụ</b></label>
             <select name="type_task">
                 <option value="1">Nhiệm vụ mới</option>

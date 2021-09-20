@@ -123,9 +123,13 @@ const updateStatusTaskById = async (data) => {
     return taskUpdated;
 }
 const createNewTask = async (data) => {
+    let last_task = 1;
     const today = new Date();
     const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()+' '+today.getHours()+':'+today.getMinutes();
-    const last_task = await Tasks.find().limit(1).sort({$natural:-1})
+    const check_last_task = await Tasks.find({id_project: data.id_project}).limit(1).sort({$natural:-1})
+    if(check_last_task.length > 0){
+        last_task = Number(check_last_task[0].index_task) + Number(1);
+    }
     const object = {
         type_task: data.type_task,
         name_task: data.name_task,
@@ -133,7 +137,7 @@ const createNewTask = async (data) => {
         id_react: data.id_react,
         id_created: data.id_created,
         status_task: 1,
-        index_task: Number(last_task[0].index_task) + Number(1),
+        index_task: last_task,
         estimate_task: data.estimate_task,
         description_task: data.description_task,
         created_date: date,
@@ -141,6 +145,7 @@ const createNewTask = async (data) => {
     const newObjectTask = new Tasks(object);
     const newTask = await newObjectTask.save();
     object.id_task = newTask._id;
+    object.id_project = newTask.id_project;
     return object;
 }
 // cacth 

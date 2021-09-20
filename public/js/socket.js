@@ -30,6 +30,7 @@ $("#create_new_task").click(function(e){
 // client lắng nghe server
 // server tạo task 
 socket.on("server-create-task", async function(data){
+    console.log(data);
     var html = "";
     if(account_current === data.id_created){
         $("#myFormPopupTask").css("display", "none");
@@ -39,7 +40,7 @@ socket.on("server-create-task", async function(data){
                 '<p class="stt-work">'+data.index_task+'</p>'+
                 '<p class="name-work">'+data.name_task+'</p>'+
             '</div>'
-    await $(".content-todo .todo").append(html);
+    await $("#project-"+data.id_project+" .todo").append(html);
     dropAndDrag();
 });
 // sửa trạng thái của nhiệm vụ

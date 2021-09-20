@@ -15,10 +15,10 @@ const get = async (req, res, next) => {
                 const list_task_test = await Tasks.find({status_task: 3, id_project: findProjectBySlug._id});
                 const list_task_review = await Tasks.find({status_task: 4, id_project: findProjectBySlug._id});
                 const list_task_done = await Tasks.find({status_task: 5, id_project: findProjectBySlug._id});
-                const list_account = await Accounts.find({}).sort({name: -1});
                 const list_project = await Project.find({list_member: {$all: [req.session.account.id]}});
-                
-                return res.render("projects/project", 
+                const list_account = await getAccountByProject(findProjectBySlug.list_member);
+                setTimeout(() => {
+                    return res.render("projects/project", 
                                     {
                                         info: req.session.account,
                                         findProjectBySlug: findProjectBySlug,
@@ -31,6 +31,7 @@ const get = async (req, res, next) => {
                                         list_task_done: list_task_done,
                                     }
                                 );
+                }, 1000);
             }else{
                 return res.redirect("/");
             }
@@ -42,6 +43,16 @@ const get = async (req, res, next) => {
         return res.redirect("/login");
     }
 };
+const getAccountByProject = (data) => {
+    let arrAccount = [];
+    data.forEach(async element => {
+        const accountByProject = await Accounts.findOne({_id: element});
+        if(accountByProject){
+            arrAccount.push(accountByProject);
+        }
+    });
+    return arrAccount;
+}
 const post = async (req, res, next) => {
     const today = new Date();
     const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()+' '+today.getHours()+':'+today.getMinutes();
