@@ -52,8 +52,22 @@ const getAccountByProject = (data) => {
   });
   return arrAccount;
 }
+const putDetail = async (req, res) => {
+  const id = req.params.id;
+  const patchTask = req.body;
+  const patchTaskUpdate = await Tasks.findByIdAndUpdate(id, patchTask);
+  setTimeout(() => {
+    if(patchTaskUpdate){
+      return res.status(200).json({
+        status: true,
+        message: "Cập nhật thành công"
+      });
+    }
+  }, 500);
+}
 module.exports = {
   post,
   get,
-  getDetail
+  getDetail,
+  putDetail
 };

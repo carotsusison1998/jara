@@ -9,4 +9,5 @@ router.route('/')
     .post(controller.post)
 router.route('/:id')
     .get(controller.getDetail)
+    .patch(controller.putDetail)
 module.exports = router

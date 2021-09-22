@@ -134,53 +134,79 @@ function getTaskDetail(){
             data: object,
             success: function(data){
               if(data.status === true){
-                console.log(data);
-
                 var htmlAccount = ''
                 data.list_account.forEach(element => {
-                    htmlAccount += '<option value="'+element._id+'">'+element.name+'</option>'
+                    if(element._id === data.taskDetail.id_react){
+                        htmlAccount += '<option value="'+element._id+'" selected>'+element.name+'</option>'
+                    }else{
+                        htmlAccount += '<option value="'+element._id+'">'+element.name+'</option>'
+                    }
                 });
-                var html = '<div class="task-detail">'+
-                                '<div class="header">'+
-                                    '<p class="index-task">'+data.taskDetail.index_task+'</p>'+
-                                    '<img src="../images/more.png" class="icon icon-more" alt="">'+
+                var html =  '<form id="form_update_task">'+
+                                '<div class="task-detail">'+
+                                    '<div class="header">'+
+                                        '<p class="index-task">'+data.taskDetail.index_task+'</p>'+
+                                        '<img src="../images/more.png" class="icon icon-more" alt="">'+
+                                    '</div>'+
+                                    '<div class="content">'+
+                                        '<div class="item-task name-task">'+
+                                            '<p>Tên nhiệm vụ</p>'+
+                                            '<input type="text" name="name_task" value="'+data.taskDetail.name_task+'">'+
+                                        '</div>'+
+                                        '<div class="item-task estimate-task">'+
+                                            '<p>Thời gian nhiệm vụ</p>'+
+                                            '<input type="text" name="estimate_task" value="'+data.taskDetail.estimate_task+'">'+
+                                        '</div>'+
+                                        '<div class="item-task reporter-task">'+
+                                            '<p>Người tạo</p>'+
+                                            '<p>'+data.account_created_task.name+'</p>'+
+                                        '</div>'+
+                                        '<div class="item-task assgin-task">'+
+                                            '<p>Người thực hiện</p>'+
+                                            '<select name="id_react">'+htmlAccount+'</select>'+
+                                        '</div>'+
+                                    '<div class="item-task created-task">'+
+                                            '<p>Thời gian tạo</p>'+
+                                            '<p>'+data.taskDetail.created_date+'</p>'+
+                                        '</div>'+
+                                        '<div class="item-task description-task">'+
+                                            '<p>Mô tả</p>'+
+                                            '<textarea name="description_task" cols="30" rows="16">'+data.taskDetail.description_task+'</textarea>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div class="footer">'+
+                                        '<button type="button" data-id="'+data.taskDetail._id+'" id="updateTask" class="btn">Lưu</button>'+
+                                        '<button type="button" class="btn cancel" onclick="closeFormTaskDetail()">Đóng</button>'+
+                                    '</div>'+
                                 '</div>'+
-                                '<div class="content">'+
-                                    '<div class="item-task name-task">'+
-                                        '<p>Tên nhiệm vụ</p>'+
-                                        '<input type="text" value="'+data.taskDetail.name_task+'">'+
-                                    '</div>'+
-                                    '<div class="item-task estimate-task">'+
-                                        '<p>Thời gian nhiệm vụ</p>'+
-                                        '<input type="text" value="'+data.taskDetail.estimate_task+'">'+
-                                    '</div>'+
-                                    '<div class="item-task reporter-task">'+
-                                        '<p>Người tạo</p>'+
-                                        '<p>'+data.account_created_task.name+'</p>'+
-                                    '</div>'+
-                                    '<div class="item-task assgin-task">'+
-                                        '<p>Người thực hiện</p>'+
-                                        '<select name="" id="">'+htmlAccount+'</select>'+
-                                    '</div>'+
-                                   '<div class="item-task created-task">'+
-                                        '<p>Thời gian tạo</p>'+
-                                        '<p>'+data.taskDetail.created_date+'</p>'+
-                                    '</div>'+
-                                    '<div class="item-task description-task">'+
-                                        '<p>Mô tả</p>'+
-                                        '<textarea name="" id="" cols="30" rows="16">'+data.taskDetail.description_task+'</textarea>'+
-                                   '</div>'+
-                                '</div>'+
-                                '<div class="footer">'+
-                                    '<button type="button" id="" class="btn">Lưu</button>'+
-                                    '<button type="button" class="btn cancel" onclick="closeFormTaskDetail()">Đóng</button>'+
-                                '</div>'+
-                            '</div>';
+                            '</form>';
                 if($(".body-content .right .content-task-detail .task-detail").length > 0){
                     $(".body-content .right .content-task-detail .task-detail").remove();
                 }
                 $(".body-content .right").css("display", "block");
                 $(".body-content .right .content-task-detail").append(html);
+                // call function update task
+                update_task();
+              }
+            }
+        });
+    });
+}
+// update task
+function update_task(){
+    $("#updateTask").click(function(){
+        let object = {};
+        $.each($('#form_update_task').serializeArray(), function(_, kv) {
+            object[kv.name] = kv.value;
+        });
+        $.ajax({
+            url: url_getDataDetail+$(this).data("id"),
+            type: "PATCH",
+            data: object,
+            success: function(data){
+              if(data.status === true){
+                showToast(true, "Chúc mừng bạn đã đăng ký thành công");
+                // window.location.reload();
               }
             }
         });
