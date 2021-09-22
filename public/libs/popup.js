@@ -28,6 +28,9 @@ function closeFormPopupProject() {
   document.getElementById("myFormPopupProject").style.display = "none";
   $(".chosen-select").val("").trigger("chosen:updated");
 }
+function closeFormTaskDetail() {
+  $(".body-content .right").css("display", "none");
+}
 $(".name-project").keyup(function () {
   ChangeToSlug($(this).val());
 });

@@ -1,10 +1,11 @@
+const account_current = $("#account_current").val();
 var socket = "";
 var api_get_message = "";
-const account_current = $("#account_current").val();
+var url_getDataDetail = "";
 
 if(document.domain === "localhost"){
 	socket = io("http://localhost:1234");
-    
+    url_getDataDetail = "http://localhost:1234/task/";
 }else{
 	// socket = io("https://zingme.herokuapp.com/");
 }
@@ -30,7 +31,6 @@ $("#create_new_task").click(function(e){
 // client lắng nghe server
 // server tạo task 
 socket.on("server-create-task", async function(data){
-    console.log(data);
     var html = "";
     if(account_current === data.id_created){
         $("#myFormPopupTask").css("display", "none");
@@ -111,11 +111,78 @@ function Drop(){
     this.append(dragItem);
     this.style.border = "2px solid #ffffff";
     autoSort(".column-item.autosort");
+    // ajax call data when click one task 
+    getTaskDetail();
 }
 function autoSort(className){
     $(className).each(function(){
         $(this).html($(this).children('.row-item').sort(function(a, b){
             return ($(b).data('stt')) < ($(a).data('stt')) ? 1 : -1;
         }));
+    });
+}
+// ajax call data when click one task 
+getTaskDetail();
+function getTaskDetail(){
+    $(".row-item").click(function(){
+        const object = {
+            id: $(this).data("id")
+        }
+        $.ajax({
+            url: url_getDataDetail+$(this).data("id"),
+            type: "GET",
+            data: object,
+            success: function(data){
+              if(data.status === true){
+                console.log(data);
+
+                var htmlAccount = ''
+                data.list_account.forEach(element => {
+                    htmlAccount += '<option value="'+element._id+'">'+element.name+'</option>'
+                });
+                var html = '<div class="task-detail">'+
+                                '<div class="header">'+
+                                    '<p class="index-task">'+data.taskDetail.index_task+'</p>'+
+                                    '<img src="../images/more.png" class="icon icon-more" alt="">'+
+                                '</div>'+
+                                '<div class="content">'+
+                                    '<div class="item-task name-task">'+
+                                        '<p>Tên nhiệm vụ</p>'+
+                                        '<input type="text" value="'+data.taskDetail.name_task+'">'+
+                                    '</div>'+
+                                    '<div class="item-task estimate-task">'+
+                                        '<p>Thời gian nhiệm vụ</p>'+
+                                        '<input type="text" value="'+data.taskDetail.estimate_task+'">'+
+                                    '</div>'+
+                                    '<div class="item-task reporter-task">'+
+                                        '<p>Người tạo</p>'+
+                                        '<p>'+data.account_created_task.name+'</p>'+
+                                    '</div>'+
+                                    '<div class="item-task assgin-task">'+
+                                        '<p>Người thực hiện</p>'+
+                                        '<select name="" id="">'+htmlAccount+'</select>'+
+                                    '</div>'+
+                                   '<div class="item-task created-task">'+
+                                        '<p>Thời gian tạo</p>'+
+                                        '<p>'+data.taskDetail.created_date+'</p>'+
+                                    '</div>'+
+                                    '<div class="item-task description-task">'+
+                                        '<p>Mô tả</p>'+
+                                        '<textarea name="" id="" cols="30" rows="16">'+data.taskDetail.description_task+'</textarea>'+
+                                   '</div>'+
+                                '</div>'+
+                                '<div class="footer">'+
+                                    '<button type="button" id="" class="btn">Lưu</button>'+
+                                    '<button type="button" class="btn cancel" onclick="closeFormTaskDetail()">Đóng</button>'+
+                                '</div>'+
+                            '</div>';
+                if($(".body-content .right .content-task-detail .task-detail").length > 0){
+                    $(".body-content .right .content-task-detail .task-detail").remove();
+                }
+                $(".body-content .right").css("display", "block");
+                $(".body-content .right .content-task-detail").append(html);
+              }
+            }
+        });
     });
 }

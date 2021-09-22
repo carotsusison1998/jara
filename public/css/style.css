@@ -169,7 +169,7 @@
   top: -12px;
   z-index: 1;
 }
-.topnav .list-project a{
+.topnav .list-project a {
   padding: 0;
   color: #000000;
   font-size: 15px;
@@ -177,17 +177,57 @@
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
-.topnav .list-project li{
+.topnav .list-project li {
   list-style: none;
   padding: 4px 4px;
   cursor: pointer;
   margin-bottom: 4px;
 }
-.topnav .list-project li:hover{
-  background-color: #43DB7B;
+.topnav .list-project li:hover {
+  background-color: #43db7b;
   color: #ffffff;
 }
 .chosen-container {
   width: 100% !important;
   margin-bottom: 22px;
+}
+/* Body content */
+.body-content {
+  display: flex;
+}
+.body-content .left {
+  flex: 1;
+}
+.body-content .right {
+  width: 30%;
+  display: none;
+}
+/* task detail */
+.content-task-detail {
+  padding: 10px;
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+}
+.content-task-detail p {
+  margin: 0;
+}
+.content-task-detail .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.content-task-detail .header p {
+  font-size: 22px;
+}
+.content-task-detail .content .item-task {
+  margin-bottom: 20px;
+}
+.content-task-detail .content input,
+.content-task-detail .content select,
+.content-task-detail .content textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #f1f1f1;
 }

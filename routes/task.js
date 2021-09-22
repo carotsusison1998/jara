@@ -5,6 +5,8 @@ const {validateParam, validateBody,schemas} = require('../helpers/routerHelpers'
 const controller = require('../controllers/task');
 
 router.route('/')
+    .get(controller.get)
     .post(controller.post)
-
+router.route('/:id')
+    .get(controller.getDetail)
 module.exports = router
