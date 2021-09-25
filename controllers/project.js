@@ -17,11 +17,13 @@ const get = async (req, res, next) => {
                 const list_task_done = await Tasks.find({status_task: 5, id_project: findProjectBySlug._id});
                 const list_project = await Project.find({list_member: {$all: [req.session.account.id]}});
                 const list_account = await getAccountByProject(findProjectBySlug.list_member);
+                const list_account_all = await Accounts.find({});
                 setTimeout(() => {
                     return res.render("projects/project", 
                                     {
                                         info: req.session.account,
                                         findProjectBySlug: findProjectBySlug,
+                                        list_account_all: list_account_all,
                                         list_project: list_project,
                                         list_account: list_account,
                                         list_task_todo: list_task_todo,

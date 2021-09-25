@@ -11,8 +11,8 @@
             <label><b>Thành viên dự án</b></label>
             <select name="list_member" data-placeholder="Chọn thành viên trong dự án" multiple class="chosen-select">
             <%
-                if(list_account && list_account.length > 0){
-                    list_account.forEach((item)=>{
+                if(list_account_all && list_account_all.length > 0){
+                    list_account_all.forEach((item)=>{
             %>
                 <option value="<%= item._id %>"><%= item.name %></option>
             <%
@@ -103,4 +103,7 @@
             <p></p>
         </div>
     </div>
+</div>
+<div id="loading">
+    <img src="../images/loading.png" alt="" class="icon icon-loading">
 </div>

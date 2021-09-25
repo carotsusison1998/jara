@@ -21,3 +21,10 @@ function closeToast(){
     toast.style.opacity = "0";
     // toast.style.display = "none";
 }
+function loading(){
+    if ($("#loading").length > 0 && $("#loading").css("display") === "none") {
+        $("#loading").css("display", "block");
+    } else {
+        $("#loading").css("display", "none");
+    }
+}

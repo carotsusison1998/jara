@@ -128,12 +128,14 @@ function getTaskDetail(){
         const object = {
             id: $(this).data("id")
         }
+        loading();
         $.ajax({
             url: url_getDataDetail+$(this).data("id"),
             type: "GET",
             data: object,
             success: function(data){
               if(data.status === true){
+                loading();
                 var htmlAccount = ''
                 data.list_account.forEach(element => {
                     if(element._id === data.taskDetail.id_react){
@@ -195,6 +197,7 @@ function getTaskDetail(){
 // update task
 function update_task(){
     $("#updateTask").click(function(){
+        loading();
         let object = {};
         $.each($('#form_update_task').serializeArray(), function(_, kv) {
             object[kv.name] = kv.value;
@@ -205,7 +208,8 @@ function update_task(){
             data: object,
             success: function(data){
               if(data.status === true){
-                showToast(true, "Chúc mừng bạn đã đăng ký thành công");
+                loading();
+                showToast(true, "Chúc mừng bạn đã cập nhật thành công");
                 // window.location.reload();
               }
             }

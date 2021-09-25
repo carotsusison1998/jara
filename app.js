@@ -42,11 +42,13 @@ app.get('/', async (req, res, next)=>{
         const list_task_review = await Tasks.find({status_task: 4});
         const list_task_done = await Tasks.find({status_task: 5});
         const list_account = await Accounts.find({}).sort({name: -1});
+        const list_account_all = await Accounts.find({});
         const list_project = await Projects.find({list_member: {$all: [req.session.account.id]}});
         return res.render("index", 
                             {
                                 info: req.session.account,
                                 findProjectBySlug: null,
+                                list_account_all: list_account_all,
                                 list_project: list_project,
                                 list_account: list_account,
                                 list_task_todo: list_task_todo,

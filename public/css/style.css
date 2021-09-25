@@ -288,3 +288,32 @@
   color: #585757;
   margin-bottom: 0;
 }
+/* loading */
+#loading{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd;
+  opacity: 0.8;
+  z-index: 100;
+  display: none;
+}
+#loading .icon-loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  animation: rotation 4s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

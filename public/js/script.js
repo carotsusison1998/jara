@@ -27,6 +27,7 @@ $("#logout").click(function(){
 
 // Tạo một dự án mới
 $("#create_new_prject").click(function(e){
+  loading();
   let object = {};
   $.each($('#myFormPopupProject form').serializeArray(), function(_, kv) {
       object[kv.name] = kv.value;
@@ -40,6 +41,7 @@ $("#create_new_prject").click(function(e){
       data: object,
       success: function(data){
         if(data.status === true){
+          loading();
           window.location.reload();
         }
       }
