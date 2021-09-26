@@ -10,4 +10,5 @@ router.route('/')
 router.route('/:id')
     .get(controller.getDetail)
     .patch(controller.putDetail)
+    .delete(controller.deleteDetail)
 module.exports = router

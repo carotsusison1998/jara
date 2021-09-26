@@ -65,9 +65,22 @@ const putDetail = async (req, res) => {
     }
   }, 500);
 }
+const deleteDetail = async (req, res) => {
+  const id = req.params.id;
+  const deleteTaskUpdate = await Tasks.findByIdAndDelete(id);
+  setTimeout(() => {
+    if(deleteTaskUpdate){
+      return res.status(200).json({
+        status: true,
+        message: "Xóa thành công"
+      });
+    }
+  }, 500);
+}
 module.exports = {
   post,
   get,
   getDetail,
-  putDetail
+  putDetail,
+  deleteDetail
 };

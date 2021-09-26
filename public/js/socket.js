@@ -39,9 +39,11 @@ socket.on("server-create-task", async function(data){
                 '<img src="../images/scroll.png" alt="" class="icon icon-drop">'+
                 '<p class="stt-work">'+data.index_task+'</p>'+
                 '<p class="name-work">'+data.name_task+'</p>'+
+                '<p class="estimate-work">'+data.estimate_task+'</p>'+
             '</div>'
     await $("#project-"+data.id_project+" .todo").append(html);
     dropAndDrag();
+    getTaskDetail();
 });
 // sửa trạng thái của nhiệm vụ
 socket.on("server-drapanddrop-task", function(data){
@@ -136,7 +138,8 @@ function getTaskDetail(){
             success: function(data){
               if(data.status === true){
                 loading();
-                var htmlAccount = ''
+                var htmlAccount = '';
+                var htmlButtonDelete = '';
                 data.list_account.forEach(element => {
                     if(element._id === data.taskDetail.id_react){
                         htmlAccount += '<option value="'+element._id+'" selected>'+element.name+'</option>'
@@ -144,6 +147,11 @@ function getTaskDetail(){
                         htmlAccount += '<option value="'+element._id+'">'+element.name+'</option>'
                     }
                 });
+                if(account_current == data.account_created_task._id){
+                    htmlButtonDelete +=  '<button type="button" data-id="'+data.taskDetail._id+'" id="deleteTask" class="btn">Xóa</button>';
+                }else{
+                    htmlButtonDelete += '';
+                }
                 var html =  '<form id="form_update_task">'+
                                 '<div class="task-detail">'+
                                     '<div class="header">'+
@@ -178,6 +186,7 @@ function getTaskDetail(){
                                     '</div>'+
                                     '<div class="footer">'+
                                         '<button type="button" data-id="'+data.taskDetail._id+'" id="updateTask" class="btn">Lưu</button>'+
+                                        htmlButtonDelete +
                                         '<button type="button" class="btn cancel" onclick="closeFormTaskDetail()">Đóng</button>'+
                                     '</div>'+
                                 '</div>'+
@@ -189,6 +198,30 @@ function getTaskDetail(){
                 $(".body-content .right .content-task-detail").append(html);
                 // call function update task
                 update_task();
+                delete_task();
+              }
+            }
+        });
+    });
+}
+function delete_task(){
+    $("#deleteTask").click(function(){
+        loading();
+        let object = {};
+        $.each($('#form_update_task').serializeArray(), function(_, kv) {
+            object[kv.name] = kv.value;
+        });
+        var id = $(this).data("id");
+        $.ajax({
+            url: url_getDataDetail+$(this).data("id"),
+            type: "DELETE",
+            data: object,
+            success: function(data){
+              if(data.status === true){
+                loading();
+                showToast(true, "Chúc mừng bạn đã xóa thành công");
+                $(".body-content .right").css("display", "none");
+                $(".task-"+id).remove();
               }
             }
         });
